@@ -78,11 +78,6 @@ spec:
       description: the image used where the git-init binary is
       type: string
       default: "gcr.io/tekton-releases/github.com/tektoncd/pipeline/cmd/git-init:v0.18.1"
-    - name: userHome
-      description: |
-        Absolute path to the user's home directory.
-      type: string
-      default: "/home/git"
   results:
     - name: commit
       description: The precise commit SHA that was fetched by this Task
@@ -91,9 +86,6 @@ spec:
   steps:
     - name: clone
       image: $(params.gitInitImage)
-      env:
-        - name: HOME
-          value: "$(params.userHome)"
       script: |
         #!/bin/sh
         set -eu -o pipefail
@@ -101,7 +93,6 @@ spec:
           set -x
         fi
         if [ "$(workspaces.ssh-directory.bound)" = "true" ] ; then
-          mkdir -p "${HOME}"/.ssh
           cp -R "$(workspaces.ssh-directory.path)" "${HOME}"/.ssh
           chmod 700 "${HOME}"/.ssh
           chmod -R 400 "${HOME}"/.ssh/*
