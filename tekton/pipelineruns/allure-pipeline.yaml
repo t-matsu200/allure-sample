@@ -14,7 +14,7 @@ spec:
     - name: APPLICATION_NAME
       value: "allure-sample"
     - name: GIT_URL
-      value: "git@github.com:t-matsu200/allure-sample.git"
+      value: "git@github.com:tmatsuno200/allure-sample.git"
     - name: GIT_REVISION
       value: "main"
     - name: GIT_REF
