@@ -22,6 +22,6 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 Selector labels
 */}}
 {{- define "allure.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "allure.name" . }}
+app.kubernetes.io/name: {{ include "allure.chart" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
