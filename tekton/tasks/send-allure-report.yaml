@@ -13,7 +13,7 @@ spec:
   description: >-
     This task used for uploading test reports to allure
   workspaces:
-    - name: output
+    - name: source
   params:
     - name: APPLICATION_NAME
       type: string
@@ -40,12 +40,12 @@ spec:
   steps:
     - name: send-report
       image: $(params.IMAGE)
-      workingDir: $(workspaces.output.path)/$(params.WORK_DIRECTORY)
+      workingDir: $(workspaces.source.path)/$(params.WORK_DIRECTORY)
       script: |
         #!/bin/bash
         #set -x
         ./send_results.sh $(params.APPLICATION_NAME) \
-          $(workspaces.output.path)/$(params.WORK_DIRECTORY) \
+          $(workspaces.source.path)/$(params.WORK_DIRECTORY) \
           $(params.ALLURE_USERNAME) \
           $(params.ALLURE_PASSWORD) \
           $(params.ALLURE_HOST) \
