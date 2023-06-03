@@ -2,6 +2,7 @@ apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: allure-pipeline
+  namespace: tekton-allure
 spec:
   workspaces:
     - name: shared-workspace

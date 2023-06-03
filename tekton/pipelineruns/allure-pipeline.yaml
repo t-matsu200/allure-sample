@@ -2,8 +2,9 @@ apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
   generateName: allure-pipeline-
+  namespace: tekton-allure
 spec:
-  serviceAccountName: pipeline
+  serviceAccountName: tekton-pipeline-sa
   pipelineRef:
     name: allure-pipeline
   podTemplate:

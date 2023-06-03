@@ -2,6 +2,7 @@ apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: send-allure-report
+  namespace: tekton-allure
   labels:
     app.kubernetes.io/version: "0.2"
   annotations:
