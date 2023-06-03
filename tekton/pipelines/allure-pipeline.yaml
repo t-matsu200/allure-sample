@@ -1,0 +1,66 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: allure-pipeline
+spec:
+  workspaces:
+    - name: shared-workspace
+  params:
+    - name: APPLICATION_NAME
+      type: string
+      default: "allure-sample"
+    - name: GIT_URL
+      type: string
+      default: "https://github.com/t-matsu200/allure-sample.git"
+    - name: GIT_REVISION
+      type: string
+      default: "master"
+    - name: GIT_REF
+      type: string
+      default: "refs/heads/master"
+  tasks:
+    - name: fetch-repository
+      taskRef:
+        name: git-clone
+      workspaces:
+        - name: output
+          workspace: shared-workspace
+      params:
+        - name: url
+          value: "$(params.GIT_URL)"
+        - name: revision
+          value: "$(params.GIT_REVISION)"
+        - name: refspec
+          value: "$(params.GIT_REF)"
+        - name: subdirectory
+          value: "$(params.APPLICATION_NAME)/$(params.GIT_BRANCH)"
+        - name: deleteExisting
+          value: "true"
+
+    - name: pytest
+      taskRef:
+        name: pytest
+      workspaces:
+        - name: source
+          workspace: shared-workspace
+      runAfter:
+        - fetch-repository
+      params:
+        - name: ARGS
+          value: "--alluredir=$(workspaces.source.path)/$(params.APPLICATION_NAME)/$(params.GIT_BRANCH)/allure_results"
+        - name: SOURCE_PATH
+          value: "$(params.APPLICATION_NAME)/$(params.GIT_BRANCH)/python-test-example/api"
+
+    - name: send-allure-report
+      taskRef:
+        name: send-allure-report
+      workspaces:
+        - name: source
+          workspace: shared-workspace
+      runAfter:
+        - pytest
+      params:
+        - name: APPLICATION_NAME
+          value: $(params.APPLICATION_NAME)
+        - name: WORK_DIRECTORY
+          value: "$(params.APPLICATION_NAME)/$(params.GIT_BRANCH)"

@@ -1,0 +1,40 @@
+---
+apiVersion: v1
+kind: ServiceAccout
+metadata:
+  name: "{{ .Release.Name }}-sa"
+  labels:
+    {{- include "allure.labels" . | nindent 4 }}
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: "{{ .Release.Name }}-{{ .Release.Namespace }}-role"
+  labels:
+    {{- include "allure.labels" . | nindent 4 }}
+rules:
+  - apiGroups:
+    - ""
+    resources:
+    - pods
+    verbs:
+    - "get"
+    - "list"
+    - "watch"
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: "{{ .Release.Name }}-{{ .Release.Namespace }}-rolebinding"
+  labels:
+    {{- include "allure.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: "{{ .Release.Name }}-{{ .Release.Namespace }}-role"
+subjects:
+  - kind: ServiceAccount
+    name: "{{ .Release.Name }}-sa"
+    namespace: {{ .Release.Namespace | quote }}

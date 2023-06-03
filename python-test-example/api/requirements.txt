@@ -1,0 +1,12 @@
+fastapi~=0.95.2
+pydantic~=1.10.8
+uvicorn~=0.22.0
+gunicorn~=20.1.0
+orjson~=3.8.14
+starlette~=0.27.0
+sqlalchemy~=2.0.15
+pymysql~=1.0.3
+httpx~=0.24.1
+
+pytest
+allure-pytest~=2.13.2

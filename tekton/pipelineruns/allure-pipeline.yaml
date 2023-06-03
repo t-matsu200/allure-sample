@@ -1,0 +1,32 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: allure-pipeline-
+spec:
+  serviceAccountName: pipeline
+  pipelineRef:
+    name: allure-pipeline
+  podTemplate:
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1001
+      fsGroup: 0
+  params:
+    - name: APPLICATION_NAME
+      value: "allure-sample"
+    - name: GIT_URL
+      value: "https://github.com/t-matsu200/allure-sample.git"
+    - name: GIT_REVISION
+      value: "master"
+    - name: GIT_REF
+      value: "refs/heads/master"
+  workspaces:
+  - name: shared-workspace
+    volumeClaimTemplates:
+      metadata:
+        name: allure-sample
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 1Gi

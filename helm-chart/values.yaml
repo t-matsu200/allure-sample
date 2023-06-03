@@ -1,0 +1,36 @@
+check_results_every_seconds: 'NONE'
+keep_history: 1
+keep_history_latest: 25
+make_viewer_endpoints_public: 1
+
+security:
+  enabled: 1
+  password: password
+  user: admin
+  secret: ''
+
+image_repository: docker.io
+image_name: frankescobar
+image_namespace: allure-docker-service
+image_version: latest
+
+resources:
+  requests:
+    memory: 1Gi
+    cpu: 1
+  limits:
+    memory: 2Gi
+    cpu: 2
+
+service:
+  type: NodePort
+  nodePort: 30550
+
+persistence:
+  allure_data:
+    enabled: true
+    annotations: {}
+    storageClass:
+    accessMode: ReadWriteOnce
+    size: 10Gi
+    mountPath: /app/projects

@@ -1,0 +1,51 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: send-allure-report
+  labels:
+    app.kubernetes.io/version: "0.2"
+  annotations:
+    tekton.dev/pipelines.minVersion: "0.17.0"
+    tekton.dev/tags: allure
+    tekton.dev/displayName: "send allure report"
+spec:
+  description: >-
+    This task used for uploading test reports to allure
+  workspaces:
+    - name: output
+  params:
+    - name: APPLICATION_NAME
+      type: string
+      default: ""
+    - name: IMAGE
+      description: the image to use to upload results
+      type: string
+      default: "allure-report-sample:latest"
+    - name: WORK_DIRECTORY
+      description: Directory to start build in (handle multiple branches)
+      type: string
+    - name: ALLURE_USERNAME
+      description: "Allure Username"
+      default: "admin"
+    - name: ALLURE_PASSWORD
+      description: "Allure Password"
+      default: "password"
+    - name: ALLURE_HOST
+      description: "Allure Host"
+      default: "http://172.18.190.24:30550"
+    - name: ALLURE_RESULT_DIR
+      description: "Result directory for Allure Tests"
+      default: "allure-results"
+  steps:
+    - name: send-report
+      image: $(params.IMAGE)
+      workingDir: $(workspaces.output.path)/$(params.WORK_DIRECTORY)
+      script: |
+        #!/bin/bash
+        #set -x
+        ./send_results.sh $(params.APPLICATION_NAME) \
+          $(workspaces.output.path)/$(params.WORK_DIRECTORY) \
+          $(params.ALLURE_USERNAME) \
+          $(params.ALLURE_PASSWORD) \
+          $(params.ALLURE_HOST) \
+          $(params.ALLURE_RESULT_DIR)

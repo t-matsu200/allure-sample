@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ .Release.Name }}-service"
+  labels:
+    {{- include "allure.labels" . | nindent 4 }}
+spec:
+  ports:
+  - name: 5050-tcp
+    port: 5050
+    protocol: TCP
+    targetPort: 5050
+    {{- if eq "NodePort" .Values.service.type }}
+    {{- if Values.service.nodePort }}
+    nodePort: {{ .Values.service.nodePort }}
+    {{- end }}
+    {{- end }}
+  selector:
+    {{- include "allure.selectorLabels" . | nindent 4 }}
+  sessionAffinity: None
+  type: {{ .Values.service.type | quote }}

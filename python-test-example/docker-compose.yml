@@ -1,0 +1,45 @@
+version: '3'
+services:
+  app:
+    container_name: app
+    build:
+      context: ./api
+    ports:
+      - 8080:8080
+    expose:
+      - "8080"
+    depends_on:
+      - db_server
+    environment:
+      MYSQL_USER: test_user
+      MYSQL_PASSWORD: test_password
+      MYSQL_HOST: db_server
+      API_WORKERS: 1
+    networks:
+      - app-net
+    command: sh ./wait.sh db_server gunicorn --config "python:gunicorn_conf" -k uvicorn.workers.UvicornWorker app:app
+
+  db_server:
+    image: mysql:latest
+    container_name: db_server
+    restart: always
+    cap_add:
+      - SYS_NICE
+    environment:
+      MYSQL_DATABASE: sample
+      MYSQL_USER: test_user
+      MYSQL_PASSWORD: test_password
+      MYSQL_ROOT_PASSWORD: test_password
+      MYSQL_PORT: 3306
+      TZ: 'Asia/Tokyo'
+    volumes:
+      - ./db/mysql_init:/docker-entrypoint-initdb.d
+      - ./db/mysql_data:/var/lib/mysql
+      - ./db/mysql_conf/:/etc/mysql/conf.d
+    networks:
+      - app-net
+
+networks:
+  app-net:
+    name: app-net
+    driver: bridge
