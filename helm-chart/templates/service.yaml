@@ -11,7 +11,7 @@ spec:
     protocol: TCP
     targetPort: 5050
     {{- if eq "NodePort" .Values.service.type }}
-    {{- if Values.service.nodePort }}
+    {{- if .Values.service.nodePort }}
     nodePort: {{ .Values.service.nodePort }}
     {{- end }}
     {{- end }}
