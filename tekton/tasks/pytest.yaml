@@ -40,7 +40,7 @@ spec:
   steps:
     - name: unit-test
       image: $(params.PYTHON_IMAGE)
-      workingDir: $(workspaces.source.path)
+      workingDir: $(workspaces.source.path)/$(params.SOURCE_PATH)
       env:
         - name: PARAM_PIP_CONF_FILE
           value: $(params.PIP_CONF_FILE)
@@ -51,6 +51,7 @@ spec:
       script: |
         #!/bin/sh
         export PATH=$PATH:$HOME/.local/bin
+        export PYTHONPATH=$(pwd)
 
         if [ "${WORKSPACE_PIP_CONF_BOUND}" = "true" ] ; then
           export PIP_CONFIG_FILE="${WORKSPACE_PIP_CONF_PATH}/${PARAM_PIP_CONF_FILE}"
@@ -70,7 +71,7 @@ spec:
           pip install pytest
         fi
         if [ -z "$(params.ARGS)" ]; then
-          pytest "$(params.SOURCE_PATH)"
+          pytest
         else
-          pytest "$(params.ARGS)" "$(params.SOURCE_PATH)"
+          pytest "$(params.ARGS)"
         fi

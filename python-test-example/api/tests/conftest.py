@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 import pytest
-from app import create_app
 from fastapi.testclient import TestClient
+
+from ..app import create_app
 
 
 @pytest.fixture(scope='module')
