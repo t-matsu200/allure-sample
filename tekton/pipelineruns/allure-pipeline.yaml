@@ -10,8 +10,8 @@ spec:
   podTemplate:
     securityContext:
       runAsNonRoot: true
-      runAsUser: 1001
-      fsGroup: 0
+      runAsUser: 65532
+      fsGroup: 65532
   params:
     - name: APPLICATION_NAME
       value: "allure-sample"

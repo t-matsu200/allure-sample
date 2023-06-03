@@ -101,6 +101,7 @@ spec:
           set -x
         fi
         if [ "$(workspaces.ssh-directory.bound)" = "true" ] ; then
+          mkdir -p "${HOME}"/.ssh
           cp -R "$(workspaces.ssh-directory.path)" "${HOME}"/.ssh
           chmod 700 "${HOME}"/.ssh
           chmod -R 400 "${HOME}"/.ssh/*
@@ -134,3 +135,6 @@ spec:
         # ensure we don't add a trailing newline to the result
         echo -n "$RESULT_SHA" > $(results.commit.path)
         echo -n "$(params.url)" > $(results.url.path)
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
