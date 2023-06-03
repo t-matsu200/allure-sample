@@ -31,3 +31,6 @@ spec:
           resources:
             requests:
               storage: 500Mi
+    - name: ssh-creds
+      secret:
+        secretName: github-tekton-secret

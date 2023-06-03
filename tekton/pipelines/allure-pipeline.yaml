@@ -6,6 +6,7 @@ metadata:
 spec:
   workspaces:
     - name: shared-workspace
+    - name: ssh-creds
   params:
     - name: APPLICATION_NAME
       type: string
@@ -26,6 +27,8 @@ spec:
       workspaces:
         - name: output
           workspace: shared-workspace
+        - name: ssh-directory
+          workspace: ssh-creds
       params:
         - name: url
           value: "$(params.GIT_URL)"
