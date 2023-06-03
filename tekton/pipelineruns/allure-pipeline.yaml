@@ -22,12 +22,12 @@ spec:
     - name: GIT_REF
       value: "refs/heads/master"
   workspaces:
-  - name: shared-workspace
-    volumeClaimTemplates:
-      metadata:
-        name: allure-sample
-      spec:
-        accessModes: [ "ReadWriteOnce" ]
-        resources:
-          requests:
-            storage: 1Gi
+    - name: shared-workspace
+      volumeClaimTemplate:
+        metadata:
+          name: allure-sample
+        spec:
+          accessModes: [ "ReadWriteOnce" ]
+          resources:
+            requests:
+              storage: 500Mi
