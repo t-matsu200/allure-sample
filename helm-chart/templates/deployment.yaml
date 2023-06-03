@@ -51,9 +51,9 @@ spec:
         - name: SECURITY_PASS
           value: {{ .Values.security.password | quote }}
         - name: SECURITY_USER
-          value: {{ .Values.security.user | quote }} 
+          value: {{ .Values.security.user | quote }}
         {{- end }}
-        image: ' '
+        image: "{{ .Values.image_repository }}/{{ .Values.image_name }}/{{ .Values.image_namespace }}:{{ .Values.image_version }}"
         imagePullPolicy: Always
         name: allure
         ports:
