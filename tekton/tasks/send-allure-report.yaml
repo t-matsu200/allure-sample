@@ -21,7 +21,7 @@ spec:
     - name: IMAGE
       description: the image to use to upload results
       type: string
-      default: "allure-report-sample:latest"
+      default: "tmatsu200/allure-report:alpine-3.18"
     - name: WORK_DIRECTORY
       description: Directory to start build in (handle multiple branches)
       type: string
