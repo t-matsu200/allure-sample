@@ -12,7 +12,7 @@ spec:
       default: "allure-sample"
     - name: GIT_URL
       type: string
-      default: "https://github.com/t-matsu200/allure-sample.git"
+      default: "git@github.com:t-matsu200/allure-sample.git"
     - name: GIT_REVISION
       type: string
       default: "master"
