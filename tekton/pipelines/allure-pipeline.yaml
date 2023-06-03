@@ -16,10 +16,10 @@ spec:
       default: "git@github.com:t-matsu200/allure-sample.git"
     - name: GIT_REVISION
       type: string
-      default: "master"
+      default: "main"
     - name: GIT_REF
       type: string
-      default: "refs/heads/master"
+      default: "refs/heads/main"
   tasks:
     - name: fetch-repository
       taskRef:

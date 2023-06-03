@@ -9,8 +9,6 @@ spec:
     name: allure-pipeline
   podTemplate:
     securityContext:
-      runAsNonRoot: true
-      runAsUser: 65532
       fsGroup: 65532
   params:
     - name: APPLICATION_NAME
@@ -18,9 +16,9 @@ spec:
     - name: GIT_URL
       value: "git@github.com:t-matsu200/allure-sample.git"
     - name: GIT_REVISION
-      value: "master"
+      value: "main"
     - name: GIT_REF
-      value: "refs/heads/master"
+      value: "refs/heads/main"
   workspaces:
     - name: shared-workspace
       volumeClaimTemplate:
