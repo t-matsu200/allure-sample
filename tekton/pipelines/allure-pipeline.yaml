@@ -34,7 +34,7 @@ spec:
         - name: refspec
           value: "$(params.GIT_REF)"
         - name: subdirectory
-          value: "$(params.APPLICATION_NAME)/$(params.GIT_BRANCH)"
+          value: "$(params.APPLICATION_NAME)/$(params.GIT_REVISION)"
         - name: deleteExisting
           value: "true"
 
@@ -48,9 +48,9 @@ spec:
         - fetch-repository
       params:
         - name: ARGS
-          value: "--alluredir=$(workspaces.source.path)/$(params.APPLICATION_NAME)/$(params.GIT_BRANCH)/allure_results"
+          value: "--alluredir=$(workspaces.source.path)/$(params.APPLICATION_NAME)/$(params.GIT_REVISION)/allure_results"
         - name: SOURCE_PATH
-          value: "$(params.APPLICATION_NAME)/$(params.GIT_BRANCH)/python-test-example/api"
+          value: "$(params.APPLICATION_NAME)/$(params.GIT_REVISION)/python-test-example/api"
 
     - name: send-allure-report
       taskRef:
@@ -64,4 +64,4 @@ spec:
         - name: APPLICATION_NAME
           value: $(params.APPLICATION_NAME)
         - name: WORK_DIRECTORY
-          value: "$(params.APPLICATION_NAME)/$(params.GIT_BRANCH)"
+          value: "$(params.APPLICATION_NAME)/$(params.GIT_REVISION)"
