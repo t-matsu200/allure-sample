@@ -38,7 +38,7 @@ spec:
         - fetch-repository
       params:
         - name: ARGS
-          value: "--alluredir=$(workspaces.source.path)/$(params.APPLICATION_NAME)/allure_results"
+          value: "--alluredir=$(workspaces.source.path)/$(params.APPLICATION_NAME)/allure-results"
         - name: SOURCE_PATH
           value: "$(params.APPLICATION_NAME)/python-test-example/api"
 
@@ -52,6 +52,6 @@ spec:
         - pytest
       params:
         - name: APPLICATION_NAME
-          value: $(params.APPLICATION_NAME)
+          value: "$(params.APPLICATION_NAME)"
         - name: WORK_DIRECTORY
           value: "$(params.APPLICATION_NAME)"

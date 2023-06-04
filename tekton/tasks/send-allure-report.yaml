@@ -33,19 +33,20 @@ spec:
       default: "password"
     - name: ALLURE_HOST
       description: "Allure Host"
-      default: "http://172.18.190.24:30550"
+      default: "http://172.27.188.216:30550"
     - name: ALLURE_RESULT_DIR
       description: "Result directory for Allure Tests"
       default: "allure-results"
   steps:
     - name: send-report
       image: $(params.IMAGE)
-      workingDir: $(workspaces.source.path)/$(params.WORK_DIRECTORY)
+      workingDir: $(workspaces.source.path)
       script: |
         #!/bin/bash
         #set -x
-        ./send_results.sh $(params.APPLICATION_NAME) \
-          $(workspaces.source.path)/$(params.WORK_DIRECTORY) \
+        /home/allure/send_results.sh \
+          $(params.APPLICATION_NAME) \
+          $(params.WORK_DIRECTORY) \
           $(params.ALLURE_USERNAME) \
           $(params.ALLURE_PASSWORD) \
           $(params.ALLURE_HOST) \
