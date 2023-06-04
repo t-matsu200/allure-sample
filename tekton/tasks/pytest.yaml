@@ -51,7 +51,6 @@ spec:
       script: |
         #!/bin/sh
         export PATH=$PATH:$HOME/.local/bin
-        export PYTHONPATH=$(pwd)
 
         if [ "${WORKSPACE_PIP_CONF_BOUND}" = "true" ] ; then
           export PIP_CONFIG_FILE="${WORKSPACE_PIP_CONF_PATH}/${PARAM_PIP_CONF_FILE}"
