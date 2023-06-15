@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_allure_sample_1686789428714-pr-trigger-input-set
+  identifier: Build_allure_sample_1686789428714prtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: SampleCI
+  pipeline:
+    identifier: Build_allure_sample_1686789428714
+    properties:
+      ci:
+        codebase:
+          build:
+            type: PR
+            spec:
+              number: <+trigger.prNumber>
