@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_allure_sample_1686789428714-push-trigger-input-set
+  identifier: Build_allure_sample_1686789428714pushtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: SampleCI
+  pipeline:
+    identifier: Build_allure_sample_1686789428714
+    properties:
+      ci:
+        codebase:
+          build:
+            type: branch
+            spec:
+              branch: <+trigger.branch>
